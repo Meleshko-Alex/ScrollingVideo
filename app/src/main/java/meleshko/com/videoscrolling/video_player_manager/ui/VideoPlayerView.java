@@ -300,6 +300,26 @@ public class VideoPlayerView extends ScalableTextureView
         mMediaPlayerListenerBackgroundThread = listener;
     }
 
+    public int getCurrentPosition(){
+        if (mMediaPlayer != null) {
+            return mMediaPlayer.getCurrentPosition();
+        }
+        return 0;
+    }
+
+    public void seekTo(int newposition){
+        if (mMediaPlayer != null) {
+            mMediaPlayer.seekTo(newposition);
+        }
+    }
+
+    public boolean isPlaying(){
+        if (mMediaPlayer != null) {
+            return mMediaPlayer.isPlaying();
+        }
+        return false;
+    }
+
     @Override
     public void onVideoSizeChangedMainThread(int width, int height) {
 
@@ -520,7 +540,10 @@ public class VideoPlayerView extends ScalableTextureView
      */
     public int getDuration() {
         synchronized (mReadyForPlaybackIndicator) {
-            return mMediaPlayer.getDuration();
+            if (mMediaPlayer != null) {
+                return mMediaPlayer.getDuration();
+            }
+            return 0;
         }
     }
 

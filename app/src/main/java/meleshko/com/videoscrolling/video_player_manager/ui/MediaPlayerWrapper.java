@@ -514,7 +514,16 @@ public abstract class MediaPlayerWrapper
     }
 
     public int getCurrentPosition() {
-        return mMediaPlayer.getCurrentPosition();
+        if (mMediaPlayer != null) {
+            return mMediaPlayer.getCurrentPosition();
+        }
+        return 0;
+    }
+
+    public void seekTo(int newposition){
+        if (mMediaPlayer != null) {
+            mMediaPlayer.seekTo(newposition);
+        }
     }
 
     public boolean isPlaying() {
