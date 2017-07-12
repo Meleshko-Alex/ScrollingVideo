@@ -99,6 +99,7 @@ public abstract class OnSwipeTouchListener implements OnTouchListener {
                 return true;
 
             case MotionEvent.ACTION_CANCEL:
+                onCancel();
                 break;
 
             case MotionEvent.ACTION_OUTSIDE:
@@ -115,5 +116,7 @@ public abstract class OnSwipeTouchListener implements OnTouchListener {
     public abstract void onAfterMove();
 
     public abstract void onBeforeMove(Direction dir);
+
+    public abstract void onCancel();
 }
 

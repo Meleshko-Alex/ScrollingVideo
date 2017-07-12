@@ -220,6 +220,11 @@ public class VideoControllerView {
             }
 
             @Override
+            public void onCancel() {
+                mPositionTextView.setVisibility(View.GONE);
+            }
+
+            @Override
             public void onAfterMove() {
                 mPositionTextView.setVisibility(View.GONE);
             }
