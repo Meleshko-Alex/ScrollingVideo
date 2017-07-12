@@ -1,11 +1,14 @@
 package meleshko.com.videoscrolling;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 import java.util.Formatter;
@@ -27,9 +30,11 @@ public class VideoControllerView {
     private static int sDefaultTimeout = 3000;
     private static final int FADE_OUT = 1;
     private static final int SHOW_PROGRESS = 2;
+    private Context mContext;
 
-    public VideoControllerView(VideoViewHolder holder) {
+    public VideoControllerView(Context context, VideoViewHolder holder) {
         mHolder = holder;
+        mContext = context;
     }
 
     public void show(int timeout) {
@@ -178,6 +183,55 @@ public class VideoControllerView {
 
     public void initControllerView() {
         mPlayer = mHolder.mPlayer;
+        OnSwipeTouchListener clickFrameSwipeListener = new OnSwipeTouchListener(){
+
+            int startVolume;
+            int maxVolume;
+            int mInitialTextureWidth = mPlayer.getWidth();
+            TextView mPositionTextView = mHolder.mVolume;
+            private AudioManager am = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
+
+            @Override
+            public void onMove(Direction dir, float diff) {
+                if (dir == Direction.LEFT || dir == Direction.RIGHT) {
+                        float diffVolume;
+                        int finalVolume;
+
+                        diffVolume = (float) maxVolume * diff / ((float) mInitialTextureWidth / 2);
+                        if (dir == Direction.LEFT) {
+                            diffVolume = -diffVolume;
+                        }
+                        finalVolume = startVolume + (int) diffVolume;
+                        if (finalVolume < 0)
+                            finalVolume = 0;
+                        else if (finalVolume > maxVolume)
+                            finalVolume = maxVolume;
+
+                        //mPositionTextView.setVisibility(View.VISIBLE);
+                        String progressText = "Volume: " + finalVolume;
+                        mPositionTextView.setText(progressText);
+                        am.setStreamVolume(AudioManager.STREAM_MUSIC, finalVolume, 0);
+                }
+            }
+
+            @Override
+            public void onClick() {
+                show();
+            }
+
+            @Override
+            public void onAfterMove() {
+                mPositionTextView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onBeforeMove(Direction dir) {
+                maxVolume = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                startVolume = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+                mPositionTextView.setVisibility(View.VISIBLE);
+            }
+        };
+        mPlayer.setOnTouchListener(clickFrameSwipeListener);
 
         mPauseButton = mHolder.mPause;
         if (mPauseButton != null) {

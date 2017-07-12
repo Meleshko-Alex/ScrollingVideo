@@ -92,6 +92,19 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/volume"
+            android:layout_above="@id/ll_mediacontroller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"/>
+
+        <TextView
             android:id="@+id/title"
             android:layout_alignParentBottom="true"
             style="@style/BaseText"/>

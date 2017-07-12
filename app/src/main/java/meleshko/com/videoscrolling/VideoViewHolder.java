@@ -20,6 +20,7 @@ public class VideoViewHolder extends RecyclerView.ViewHolder{
     public final LinearLayout mMediacontroller;
     public final TextView mTimeCurrent;
     public final TextView mTime;
+    public final TextView mVolume;
     public final SeekBar mMediacontroller_progress;
 
     public VideoViewHolder(View view) {
@@ -32,6 +33,7 @@ public class VideoViewHolder extends RecyclerView.ViewHolder{
         mMediacontroller = (LinearLayout) view.findViewById(R.id.ll_mediacontroller);
         mTimeCurrent = (TextView) view.findViewById(R.id.time_current);
         mTime = (TextView) view.findViewById(R.id.time);
+        mVolume = (TextView) view.findViewById(R.id.volume);
         mMediacontroller_progress = (SeekBar) view.findViewById(R.id.mediacontroller_progress);
     }
 }

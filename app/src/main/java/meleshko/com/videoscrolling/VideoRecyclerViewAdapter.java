@@ -32,7 +32,7 @@ public class VideoRecyclerViewAdapter extends RecyclerView.Adapter<VideoViewHold
         mVideoViewHolder.mPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                VideoControllerView vcv = new VideoControllerView(mVideoViewHolder);
+                VideoControllerView vcv = new VideoControllerView(mContext, mVideoViewHolder);
                 vcv.initControllerView();
                 vcv.show();
             }
