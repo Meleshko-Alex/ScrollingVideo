@@ -1,11 +1,13 @@
 package meleshko.com.videoscrolling;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.AbsListView;
 
 import java.io.IOException;
@@ -74,9 +76,11 @@ public class MainActivity extends AppCompatActivity {
         Log.i("QQQQQ", "filePath = !!!" );
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
 
         try {
-            mList.add(ItemFactory.createItemFromAsset("video_sample_2.mp4", R.mipmap.ic_launcher, this, mVideoPlayerManager));
+            mList.add(ItemFactory.createItemFromAsset("video_sample_2.mp4", R.drawable.video_holder, this, mVideoPlayerManager));
            /* mList.add(ItemFactory.createItemFromAsset("video_sample_2.mp4", R.mipmap.ic_launcher, this, mVideoPlayerManager));
             mList.add(ItemFactory.createItemFromAsset("video_sample_1.mp4", R.mipmap.ic_launcher, this, mVideoPlayerManager));
             mList.add(ItemFactory.createItemFromAsset("video_sample_2.mp4", R.mipmap.ic_launcher, this, mVideoPlayerManager));
@@ -170,6 +174,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         if (!mList.isEmpty()) {
@@ -227,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 1; i <= numContacts; i++) {
             try {
-                mList.add(ItemFactory.createItemFromAsset("video_sample_2.mp4", R.mipmap.ic_launcher, this, mVideoPlayerManager));
+                mList.add(ItemFactory.createItemFromAsset("video_sample_2.mp4", R.drawable.video_holder, this, mVideoPlayerManager));
             } catch (IOException e) {
                 e.printStackTrace();
             }

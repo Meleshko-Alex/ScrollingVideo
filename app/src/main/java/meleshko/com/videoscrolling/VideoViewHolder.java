@@ -17,6 +17,7 @@ public class VideoViewHolder extends RecyclerView.ViewHolder{
     public final ImageView mCover;
     public final ImageView mPause;
     public final ImageView mPlay;
+    public final ImageView mFullScreen;
     public final LinearLayout mMediacontroller;
     public final TextView mTimeCurrent;
     public final TextView mTime;
@@ -30,6 +31,7 @@ public class VideoViewHolder extends RecyclerView.ViewHolder{
         mCover = (ImageView) view.findViewById(R.id.cover);
         mPause = (ImageView) view.findViewById(R.id.iv_pause);
         mPlay = (ImageView) view.findViewById(R.id.iv_play);
+        mFullScreen = (ImageView) view.findViewById(R.id.fullscreen);
         mMediacontroller = (LinearLayout) view.findViewById(R.id.ll_mediacontroller);
         mTimeCurrent = (TextView) view.findViewById(R.id.time_current);
         mTime = (TextView) view.findViewById(R.id.time);

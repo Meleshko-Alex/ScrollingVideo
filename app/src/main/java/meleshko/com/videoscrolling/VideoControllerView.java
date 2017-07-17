@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 import java.util.Formatter;
@@ -24,6 +25,7 @@ public class VideoControllerView {
     private static VideoPlayerView mPlayer;
     private ImageView mPauseButton;
     private ImageView mPlayButton;
+    private ImageView mFullscreenButton;
     private StringBuilder mFormatBuilder = new StringBuilder();
     private Formatter mFormatter = new Formatter(mFormatBuilder, Locale.getDefault());
     private Handler mHandler = new MessageHandler(this);
@@ -47,8 +49,8 @@ public class VideoControllerView {
             }
             mShowing = true;
         }
-        //updateFullScreen();
         updatePausePlay();
+        updateFullScreen();
 
         mHandler.sendEmptyMessage(SHOW_PROGRESS);
 
@@ -244,17 +246,12 @@ public class VideoControllerView {
             mPauseButton.setOnClickListener(mPauseListener);
         }
 
-        mPlayButton = mHolder.mPlay;
-        /*if (mPlayButton != null) {
-            //mPlayButton.requestFocus();
-            mPlayButton.setOnClickListener(mPlayListener);
-        }*/
-
-        /*mFullscreenButton = (ImageButton) v.findViewById(R.id.fullscreen);
+        mFullscreenButton = mHolder.mFullScreen;
         if (mFullscreenButton != null) {
-            mFullscreenButton.requestFocus();
-            mFullscreenButton.setOnClickListener(mFullscreenListener);
-        }*/
+            mFullscreenButton.setOnClickListener(mFullscreenButtonListener);
+        }
+
+        mPlayButton = mHolder.mPlay;
 
         mProgress = mHolder.mMediacontroller_progress;
         if (mProgress != null) {
@@ -262,12 +259,19 @@ public class VideoControllerView {
         }
 
         updatePausePlay();
+        updateFullScreen();
     }
 
     private View.OnClickListener mPauseListener = new View.OnClickListener() {
         public void onClick(View v) {
             doPauseResume();
             show(sDefaultTimeout);
+        }
+    };
+
+    private View.OnClickListener mFullscreenButtonListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            Toast.makeText(mContext, "FULLSCREEN", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -290,6 +294,19 @@ public class VideoControllerView {
         } else {
             mPauseButton.setImageResource(R.drawable.ic_play_circle_white_72dp);
         }
+    }
+
+    public  void updateFullScreen() {
+        if (isFullScreen()) {
+            mFullscreenButton.setImageResource(R.drawable.ic_fullscreen_black_24dp);
+        }
+        else {
+            mFullscreenButton.setImageResource(R.drawable.ic_fullscreen_exit_black_24dp);
+        }
+    }
+
+    public boolean isFullScreen() {
+        return false;
     }
 
 }

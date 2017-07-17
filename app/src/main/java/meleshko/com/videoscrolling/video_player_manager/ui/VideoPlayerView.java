@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
 
@@ -274,7 +275,9 @@ public class VideoPlayerView extends ScalableTextureView
 
             try {
                 mMediaPlayer.setDataSource(assetFileDescriptor);
+                Log.i("11111","111111111111");
             } catch (IOException e) {
+                Log.i("11111","22222222222222");
                 Logger.d(TAG, e.getMessage());
                 throw new RuntimeException(e);
             }
